@@ -7,6 +7,8 @@ name = "pypi"
 django = "==1.9.8"
 pillow = "*"
 pymysql = "*"
+django-import-export = "*"
+future = "*"
 
 [dev-packages]
 
