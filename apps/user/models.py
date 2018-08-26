@@ -8,7 +8,7 @@ from django.db import models
 
 class UserProfile(AbstractUser):
     nick_name = models.CharField(max_length=50, verbose_name='昵称', default='')
-    brithday = models.DateTimeField(verbose_name='生日', )
+    brithday = models.DateTimeField(verbose_name='生日', blank=True, null=True)
     gender = models.CharField(max_length=10, choices=(('male', '男'), ('female', '女')), default='female')
     address = models.CharField(max_length=100, default='')
     mobile = models.CharField(max_length=11, null=True, blank=True)
@@ -31,6 +31,9 @@ class EmailVerifyRecord(models.Model):
     class Meta:
         verbose_name = '邮箱验证码'
         verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return '{0}({1})'.format(self.code, self.email)
 
 
 class Banner(models.Model):

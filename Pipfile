@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "==1.9.8"
 pillow = "*"
+pycurl = {path = "D:/\u4e0b\u8f7d\u6587\u4ef6/pycurl-7.43.1-cp36-cp36m-win_amd64.whl"}
+"2c04572" = {path = "D:/\u4e0b\u8f7d\u6587\u4ef6/xadmin-master.zip"}
 
 [dev-packages]
 
