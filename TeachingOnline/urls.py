@@ -18,6 +18,6 @@ from django.conf.urls import url
 import xadmin
 
 urlpatterns = [
-    url('xadmin/', xadmin.site.urls),
+    url('^xadmin/', xadmin.site.urls)
 
 ]

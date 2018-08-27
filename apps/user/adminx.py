@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/8/24 0024 18:07
 # @Author  : Liushixin
-# @Site    : 
+# @Site    :
 # @File    : adminx.py
 # @Software: PyCharm
 import xadmin
