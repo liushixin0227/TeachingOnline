@@ -48,6 +48,9 @@ INSTALLED_APPS = [
 
 AUTH_USER_MODEL = 'user.UserProfile'
 
+AUTHENTICATION_BACKENDS = (
+    'user.views.CustomBackend',
+)
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -132,3 +135,5 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')
+                    ]
