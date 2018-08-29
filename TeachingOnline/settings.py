@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'crispy_forms',
-    'xadmin'
+    'xadmin',
+    'captcha'
 ]
 
 AUTH_USER_MODEL = 'user.UserProfile'
@@ -90,8 +91,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'teachingonline_db',
         'USER': 'root',
-        'PASSWORD': 'pass',
-        'HOST': 'www.liushixin.xyz',
+        'PASSWORD': 'q1w2e3r4%root',
+        'HOST': '192.168.1.109',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
