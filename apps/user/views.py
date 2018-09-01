@@ -8,7 +8,21 @@ from django.contrib import auth
 from django.views.generic.base import View
 
 from user.forms import LoginForm, RegisterForm
-from user.models import UserProfile
+from user.models import UserProfile, EmailVerifyRecord
+from utils.email_send import send_register_email
+
+
+class ActiveUserView(View):
+    @staticmethod
+    def get(request, active_code):
+        all_records = EmailVerifyRecord.objects.filter(code=active_code)
+        if all_records:
+            for record in all_records:
+                email = record.email
+                user = UserProfile.objects.get(username=email)
+                user.is_active = True
+                user.save()
+        return render(request, 'login.html')
 
 
 class CustomBackend(ModelBackend):
@@ -31,13 +45,19 @@ class RegisterView(View):
     def post(request):
         register_form = RegisterForm(request.POST)
         if register_form.is_valid():
-            user_name = request.POST.get('username','')
-            pass_word = request.POST.get('password','')
+            user_name = request.POST.get('email', '')
+            pass_word = request.POST.get('password', '')
             user_profile = UserProfile()
             user_profile.username = user_name
             user_profile.email = user_name
+            user_profile.is_active = False
             user_profile.password = make_password(pass_word)
             user_profile.save()
+
+            send_register_email(user_name, 'register')
+            return render(request, 'login.html')
+        else:
+            return render(request, 'register.html', {'register_form': register_form})
 
 
 class LoginView(View):
@@ -53,7 +73,10 @@ class LoginView(View):
             pass_word = request.POST.get('password', '')
             user = auth.authenticate(username=user_name, password=pass_word)
             if user is not None:
-                auth.login(request, user)
-                return render(request, 'index.html', {'msg': '账号或密码错误!'})
+                if user.is_active:
+                    auth.login(request, user)
+                    return render(request, 'index.html')
+            else:
+                return render(request, 'login.html', {'用户未激活'})
         else:
-            return render(request, 'login.html', {'login_form': login_form})
+            return render(request, 'login.html', {'login_form': login_form}, {'msg': '账号或密码错误!'})
