@@ -7,10 +7,6 @@
 # @Software: PyCharm
 import random
 import string
-import os, django
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "TeachingOnline.settings")  # project_name 项目名称
-django.setup()
 from django.core.mail import send_mail
 
 from TeachingOnline.settings import EMAIL_FROM
@@ -35,4 +31,13 @@ def send_register_email(email, send_type='register'):
         email_title = '在线教育网站注册激活链接'
         email_body = '请点击下面的链接激活你的账号: http://127.0.0.1:8000/active/{}'.format(code)
         send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
-        print(send_status)
+        if send_status:
+            pass
+
+    elif send_type == 'forget':
+        email_title = '在线教育网站密码重置链接'
+        email_body = '请点击下面的链接重置密码: http://127.0.0.1:8000/reset/{}'.format(code)
+        send_status = send_mail(email_title, email_body, EMAIL_FROM, [email])
+        if send_status:
+            pass
+
