@@ -11,9 +11,9 @@ from organization.models import CityDict, CourseOrg, Teacher
 
 @xadmin.sites.register(CityDict)
 class CityDictAdmin(object):
-    list_display = ['name', 'create_time']
-    search_fields = ['name']
-    list_filter = ['name', 'create_time']
+    list_display = ['name', 'describe', 'create_time']
+    search_fields = ['name', 'describe']
+    list_filter = ['name', 'create_time', 'describe']
 
 
 @xadmin.sites.register(CourseOrg)

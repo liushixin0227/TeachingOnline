@@ -7,7 +7,7 @@ from django.contrib import auth
 # Create your views here.
 from django.views.generic.base import View
 
-from user.forms import LoginForm, RegisterForm, ForgetPwdForm
+from user.forms import LoginForm, RegisterForm, ForgetPwdForm, ModifyPwdForm
 from user.models import UserProfile, EmailVerifyRecord
 from utils.email_send import send_register_email
 
@@ -102,3 +102,29 @@ class ForgetPwdView(View):
             return render(request, 'send_success.html')
         else:
             return render(request, 'forgetpwd.html', {'forgetpwd_form': forgetpwd_form})
+
+
+class ResetView(View):
+    email = ''
+
+    @classmethod
+    def get(cls, request, reset_code):
+        all_records = EmailVerifyRecord.objects.filter(code=reset_code)
+        if all_records:
+            for record in all_records:
+                cls.email = record.email
+            return render(request, 'password_reset.html', {'code': reset_code})
+        else:
+            return render(request, 'forgetpwd.html')
+
+    @classmethod
+    def post(cls, request, reset_code):
+        modify_form = ModifyPwdForm(request.POST)
+        if modify_form.is_valid():
+            pwd = request.POST.get('password', '')
+            user = UserProfile.objects.get(email=cls.email)
+            user.password = make_password(pwd)
+            user.save()
+            return render(request, 'login.html')
+        else:
+            return render(request, 'password_reset.html', {'modify_form': modify_form})

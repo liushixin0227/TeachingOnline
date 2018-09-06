@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'operation',
     'crispy_forms',
     'xadmin',
-    'captcha'
+    'captcha',
+    'pure_pagination',
 ]
 
 AUTH_USER_MODEL = 'user.UserProfile'
@@ -76,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
             ],
         },
     },
@@ -136,12 +138,21 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
                     ]
 
+# 资源文件存放位置
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# 邮箱配置
 EMAIL_HOST = 'smtp.qq.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = '522273565@qq.com'  # 你的 QQ 账号
 EMAIL_HOST_PASSWORD = 'ewaqdudvufbocaab'
 EMAIL_USE_TLS = True  # 这里必须是 True，否则发送不成功
 EMAIL_FROM = '522273565@qq.com'  # 你的 QQ 账号
+
+# 时间显示格式
+DATETIME_FORMAT = 'Y-m-d H:i:s'
+DATE_FORMAT = 'Y-m-d'

@@ -14,6 +14,7 @@ django-formtools = "*"
 "httplib2" = "*"
 penv = "*"
 django-simple-captcha = "==0.4.6"
+django-pure-pagination = "*"
 
 [dev-packages]
 
