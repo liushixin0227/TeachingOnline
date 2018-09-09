@@ -15,7 +15,7 @@ from operation.models import UserAsk
 class UserAskForm(forms.ModelForm):
     class Meta:
         model = UserAsk
-        fields = ['name', 'mobile', 'course_name']
+        fields = ['name', 'mobile', 'course_name', ]
 
     def clean(self):
         mobile = self.cleaned_data['mobile']
