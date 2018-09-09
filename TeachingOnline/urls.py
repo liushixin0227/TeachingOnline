@@ -31,7 +31,7 @@ urlpatterns = [
     url('^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name='user_active'),
     url('^forget/$', ForgetPwdView.as_view(), name='forget_pwd'),
     url('^reset/(?P<reset_code>.*)/$', ResetView.as_view(), name='user_reset'),
-    url('^org_list/$', OrgView.as_view(), name='orglist'),
+    url('^org/', include('organization.urls', namespace='ns_org')),
     url('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
 
 ]

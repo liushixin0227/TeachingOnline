@@ -138,8 +138,9 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),
-                    ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 # 资源文件存放位置
 MEDIA_URL = '/media/'
