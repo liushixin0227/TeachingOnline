@@ -12,4 +12,5 @@ from organization.views import OrgView, AddUserAskView
 urlpatterns = [
     url('^list/$', OrgView.as_view(), name='orglist'),
     url('^add_ask/$', AddUserAskView.as_view(), name='add_ask'),
+    url('^home/(?P<org_id>\d+)')
 ]

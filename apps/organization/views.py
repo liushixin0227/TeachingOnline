@@ -1,3 +1,5 @@
+import json
+
 from django.http import HttpResponse
 from django.shortcuts import render
 from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
@@ -54,8 +56,18 @@ class AddUserAskView(View):
     def post(self, request):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
-            user_ask = userask_form.save(commit=True)
-            return HttpResponse('{"statu":"success"}', content_type='application/json')
+            userask_form.save()
+            return HttpResponse('{"status": "success"}', content_type="application/json")
         else:
-            return HttpResponse('{"status":"fail","msg":"提交错误"}',
-                                content_type='application/json')
+            return HttpResponse('{"status": "fail", "msg": "提交错误"}', content_type="application/json")
+
+
+class OrgHomeView(View):
+    def get(self, request, org_id):
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_courses = course_org.course_set.all()[:3]
+        all_teacher = course_org.teacher_set.all()[:1]
+        return render(request, 'org-detail-homepage.html', {
+            'all_courses': all_courses,
+            'all_teacher': all_teacher,
+        })

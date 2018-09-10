@@ -138,6 +138,7 @@
             <div class="right companyright">
                 <div class="head">我要学习</div>
                 <form class="rightform" id="jsStayForm" method="post">
+                    {% csrf_token %}
                     <div>
                         <img src="/static/images/rightform1.png"/>
                         <input type="text" name="name" id="companyName" placeholder="名字" maxlength="25"/>
@@ -151,8 +152,7 @@
                         <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50"/>
                     </div>
                     <p class="error company-tips" id="jsCompanyTips"></p>
-                    <input class="btn" type="submit" id="jsStayBtn" name="jsStayBtn" value="立即咨询 >"/>
-                    {% csrf_token %}
+                    <input class="btn" type="button" id="jsStayBtn" value="立即咨询 >"/>
                 </form>
             </div>
 
@@ -176,29 +176,24 @@
 {% block custom_script %}
     <script>
         $(function () {
-            const jsStayForm = $('#jsStayForm');
-            $("#jsStayBtn").on("click", function () {
-                $.ajax(      //ajax方式提交表单
-                    {
-                        url: "{% url 'ns_org:add_ask' %}",
-                        type: 'post',
-                        dataType: 'json',
-                        data: jsStayForm.serialize(),
-                        beforeSubmit: function () {
-                        },
-                        success: function (data) {
-                            if (data.status == 'success') {
-                                $('#jsCompanyTips').html('您的申请已提交，我们将会在1-2个工作日内进行审核，请耐心等待!');
-                            } else {
-                                alert(data.msg);
-                            }
-                        },
-                        {#clearForm: false,//禁止清楚表单#}
-                        {#resetForm: false //禁止重置表单#}
-                    });
+            $('#jsStayBtn').on('click', function () {
+                $.ajax({
+                    cache: false,
+                    type: "POST",
+                    url: "{% url 'ns_org:add_ask' %}",
+                    data: $('#jsStayForm').serialize(),
+                    async: true,
+                    success: function (data) {
+                        if (data.status == 'success') {
+                            $('#jsStayForm')[0].reset();
+                            $('#jsCompanyTips').hide();
+                            alert('提交成功')
+                        } else if (data.status == 'fail') {
+                            $('#jsCompanyTips').html(data.msg)
+                        }
+                    },
+                });
             });
-
         })
-
     </script>
 {% endblock %}

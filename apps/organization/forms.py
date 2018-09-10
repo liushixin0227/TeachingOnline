@@ -17,7 +17,7 @@ class UserAskForm(forms.ModelForm):
         model = UserAsk
         fields = ['name', 'mobile', 'course_name', ]
 
-    def clean(self):
+    def clean_mobile(self):
         mobile = self.cleaned_data['mobile']
         REGEX_MOBILE = "^(13\d|14[5|7]|15\d|166|17[3|6|7]|18\d)\d{8}$"
         p = re.compile(REGEX_MOBILE)
