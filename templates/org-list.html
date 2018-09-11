@@ -65,7 +65,7 @@
                         {% for course_org in orgs.object_list %}
                             <dl class="des difdes">
                                 <dt>
-                                    <a href="org-detail-homepage.html">
+                                    <a href="{% url 'ns_org:org_home' course_org.id %}">
                                         <img width="200" height="120" class="scrollLoading"
                                              data-url="{{ MEDIA_URL }}{{ course_org.image }}"/>
                                     </a>

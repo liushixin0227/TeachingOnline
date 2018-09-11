@@ -53,7 +53,8 @@ class OrgView(View):
 
 
 class AddUserAskView(View):
-    def post(self, request):
+    @staticmethod
+    def post(request):
         userask_form = UserAskForm(request.POST)
         if userask_form.is_valid():
             userask_form.save()
@@ -63,11 +64,42 @@ class AddUserAskView(View):
 
 
 class OrgHomeView(View):
-    def get(self, request, org_id):
+    current_page = 'Home'
+
+    @classmethod
+    def get(cls, request, org_id):
         course_org = CourseOrg.objects.get(id=int(org_id))
         all_courses = course_org.course_set.all()[:3]
         all_teacher = course_org.teacher_set.all()[:1]
         return render(request, 'org-detail-homepage.html', {
             'all_courses': all_courses,
             'all_teacher': all_teacher,
+            'course_org': course_org,
+            'current_page': cls.current_page
+        })
+
+
+class OrgCourseView(View):
+    current_page = 'Course'
+
+    @classmethod
+    def get(cls, request, org_id):
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        all_courses = course_org.course_set.all()
+        return render(request, 'org-detail-course.html', {
+            'all_courses': all_courses,
+            'course_org': course_org,
+            'current_page': cls.current_page,
+        })
+
+
+class OrgDescribeView(View):
+    current_page = 'Describe'
+
+    @classmethod
+    def get(cls, request, org_id):
+        course_org = CourseOrg.objects.get(id=int(org_id))
+        return render(request, 'org-detail-desc.html', {
+            'course_org': course_org,
+            'current_page': cls.current_page,
         })
