@@ -15,9 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
+from django.views.static import serve
 
 import xadmin
-from user.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView
+from TeachingOnline.settings import MEDIA_ROOT
+from organization.views import OrgView
+from user.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView
 
 urlpatterns = [
     url('^xadmin/', xadmin.site.urls),
@@ -27,6 +30,8 @@ urlpatterns = [
     url('^captcha/', include('captcha.urls')),
     url('^active/(?P<active_code>.*)/$', ActiveUserView.as_view(), name='user_active'),
     url('^forget/$', ForgetPwdView.as_view(), name='forget_pwd'),
-    url('^reset/(?P<active_code>.*)/$', ResetUserView.as_view(), name='user_reset'),
+    url('^reset/(?P<reset_code>.*)/$', ResetView.as_view(), name='user_reset'),
+    url('^org/', include('organization.urls', namespace='ns_org')),
+    url('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
 
 ]

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "df4d0e7b9e94559b126b2f10b6b00e757496fa40af2b5823751e9413a90c8358"
+            "sha256": "61839302381608b862af0e6c787e463c152474aff36f7bd553115b77fdaebdef"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -129,6 +129,13 @@
             "index": "pypi",
             "version": "==1.0.1"
         },
+        "django-pure-pagination": {
+            "hashes": [
+                "sha256:02b42561b8afb09f1fb6ac6dc81db13374f5f748640f31c8160a374274b54713"
+            ],
+            "index": "pypi",
+            "version": "==0.3.0"
+        },
         "django-simple-captcha": {
             "hashes": [
                 "sha256:da106751fe3100875a0d10ebe37762be63b6d271f94b6d36355e3521fbfcf78a"
@@ -179,9 +186,9 @@
         },
         "openpyxl": {
             "hashes": [
-                "sha256:0f391b0035d7c98f25aad539726e8efc77eea250ff1a120ea7d264c03a16f5fe"
+                "sha256:04091e034911a0afc531c3a15e5ae0b1b6a43654dbf63c187f47d20cdfefac1c"
             ],
-            "version": "==2.5.5"
+            "version": "==2.5.6"
         },
         "penv": {
             "hashes": [
