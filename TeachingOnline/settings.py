@@ -43,11 +43,15 @@ INSTALLED_APPS = [
     'organization',
     'operation',
     'crispy_forms',
-    'xadmin'
+    'xadmin',
+    'captcha'
 ]
 
 AUTH_USER_MODEL = 'user.UserProfile'
 
+AUTHENTICATION_BACKENDS = (
+    'user.views.CustomBackend',
+)
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -87,8 +91,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'teachingonline_db',
         'USER': 'root',
-        'PASSWORD': 'pass',
-        'HOST': 'www.liushixin.xyz',
+        'PASSWORD': 'q1w2e3r4%root',
+        'HOST': '192.168.1.109',
         'PORT': '3306',
         'OPTIONS': {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
@@ -132,3 +136,12 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 STATIC_ROOT = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')
+                    ]
+
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = '522273565@qq.com'  # 你的 QQ 账号
+EMAIL_HOST_PASSWORD = 'ewaqdudvufbocaab'
+EMAIL_USE_TLS = True  # 这里必须是 True，否则发送不成功
+EMAIL_FROM = '522273565@qq.com'  # 你的 QQ 账号
