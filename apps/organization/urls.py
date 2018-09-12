@@ -7,7 +7,8 @@
 # @Software: PyCharm
 from django.conf.urls import url
 
-from organization.views import OrgView, AddUserAskView, OrgHomeView, OrgCourseView, OrgDescribeView
+from organization.views import OrgView, AddUserAskView, OrgHomeView, OrgCourseView, OrgDescribeView, OrgTeacherView, \
+    AddFavView
 
 urlpatterns = [
     url('^list/$', OrgView.as_view(), name='orglist'),
@@ -16,4 +17,5 @@ urlpatterns = [
     url('^course/(?P<org_id>\d+)', OrgCourseView.as_view(), name='org_course'),
     url('^describe/(?P<org_id>\d+)', OrgDescribeView.as_view(), name='org_describe'),
     url('^teacher/(?P<org_id>\d+)', OrgTeacherView.as_view(), name='org_teacher'),
+    url('^add_fav/$', AddFavView.as_view(), name='add_fav')
 ]
