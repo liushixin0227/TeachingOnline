@@ -32,6 +32,7 @@ urlpatterns = [
     url('^forget/$', ForgetPwdView.as_view(), name='forget_pwd'),
     url('^reset/(?P<reset_code>.*)/$', ResetView.as_view(), name='user_reset'),
     url('^org/', include('organization.urls', namespace='ns_org')),
-    url('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT})
+    url('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
+    # url('^')
 
 ]
