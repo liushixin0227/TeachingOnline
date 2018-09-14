@@ -33,6 +33,6 @@ urlpatterns = [
     url('^reset/(?P<reset_code>.*)/$', ResetView.as_view(), name='user_reset'),
     url('^org/', include('organization.urls', namespace='ns_org')),
     url('^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),
-    # url('^')
+    url('^course/', include('courses.urls', namespace='course')),
 
 ]

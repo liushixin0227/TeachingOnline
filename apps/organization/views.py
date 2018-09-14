@@ -2,8 +2,9 @@ import json
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from pure_pagination import Paginator, EmptyPage, PageNotAnInteger
+from pure_pagination import Paginator, PageNotAnInteger
 from django.views.generic import View
+from django.views.decorators.csrf import csrf_exempt
 
 from operation.models import UserFavorite
 from organization.forms import UserAskForm
@@ -158,21 +159,21 @@ class AddFavView(View):
 
         # 判断用户登录状态
         if not request.user.is_authenticated():
-            return HttpResponse('{"status":"fail","msg":"用户未登录"}', content='application/json')
+            return HttpResponse('{"status":"fail","msg":"用户未登录"}', content_type='application/json')
 
         exist_reports = UserFavorite.objects.filter(fav_id=int(fav_id), fav_type=int(fav_type), user=request.user)
 
         if exist_reports:
             exist_reports.delete()
-            return HttpResponse('{"status":"success","msg":"收藏"}', content='application/json')
+            return HttpResponse('{"status":"success","msg":"收藏"}', content_type='application/json')
 
         else:
             user_fav = UserFavorite()
-            if int(user_fav.fav_type) > 0 and int(user_fav.fav_id) > 0:
+            if int(fav_type) > 0 and int(fav_id) > 0:
                 user_fav.user = request.user
                 user_fav.fav_type = fav_type
                 user_fav.fav_id = fav_id
                 user_fav.save()
-                return HttpResponse('{"status":"success","msg":"已收藏"}', content='application/json')
+                return HttpResponse('{"status":"success","msg":"已收藏"}', content_type='application/json')
             else:
-                return HttpResponse('{"status":"fail","msg":"收藏出错"}', content='application/json')
+                return HttpResponse('{"status":"fail","msg":"收藏出错"}', content_type='application/json')
