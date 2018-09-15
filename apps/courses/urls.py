@@ -7,9 +7,9 @@
 # @Software: PyCharm
 from django.conf.urls import url
 
-from courses.views import CoureseListView
+from courses.views import CoursesListView
 
 urlpatterns = [
-    url('^list/$', CoureseListView.as_view(), name='course_list'),
+    url('^list/$', CoursesListView.as_view(), name='course_list'),
 
 ]
