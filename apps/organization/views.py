@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from pure_pagination import Paginator, PageNotAnInteger
 from django.views.generic import View
-from django.views.decorators.csrf import csrf_exempt
 
 from operation.models import UserFavorite
 from organization.forms import UserAskForm

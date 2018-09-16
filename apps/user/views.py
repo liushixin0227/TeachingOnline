@@ -1,4 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.db.models import Q
 from django.shortcuts import render

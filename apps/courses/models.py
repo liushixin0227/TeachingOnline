@@ -16,6 +16,8 @@ class Course(models.Model):
     detail = models.TextField(verbose_name='课程详情')
     degree = models.CharField(max_length=20, choices=(
         ('Junior', '初级'), ('Medium', '中级'), ('Advanced', '高级')), verbose_name='课程难度')
+    category = models.CharField(max_length=20, verbose_name='课程类别', default='')
+    tag = models.CharField(max_length=100, verbose_name='课程标签', default='')
     learn_times = models.IntegerField(default=0, verbose_name='学习时长(分钟)')
     students = models.IntegerField(default=0, verbose_name='学习人数')
     fav_num = models.IntegerField(default=0, verbose_name='收藏人数')
@@ -26,6 +28,12 @@ class Course(models.Model):
     class Meta:
         verbose_name = '课程'
         verbose_name_plural = verbose_name
+
+    def users(self):
+        return self.usercourse_set.all()[:5]
+
+    def lesson_num(self):
+        return self.lesson_set.all().count()
 
     def __str__(self):
         return self.name
